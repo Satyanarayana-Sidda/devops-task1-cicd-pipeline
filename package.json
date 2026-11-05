@@ -1,11 +1,10 @@
-
 {
   "name": "task-1",
   "version": "1.0.0",
   "description": "DevOps CI/CD Pipeline using GitHub Actions",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server.js",
     "test": "node --test"
   },
   "dependencies": {

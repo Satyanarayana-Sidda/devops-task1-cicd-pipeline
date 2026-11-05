@@ -2,7 +2,6 @@
 const express = require("express");
 
 const app = express();
-
 const PORT = 3000;
 
 // Home route
@@ -18,7 +17,5 @@ app.get("/health", (req, res) => {
     });
 });
 
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Export the application for testing and server startup
+module.exports = app;

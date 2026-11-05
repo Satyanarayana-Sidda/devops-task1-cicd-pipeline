@@ -1,5 +1,4 @@
- 
-# Use Node.js base image
+﻿# Use Node.js base image
 FROM node:24-alpine
 
 # Set working directory inside container
@@ -11,8 +10,8 @@ COPY package*.json ./
 # Install production dependencies
 RUN npm ci --omit=dev
 
-# Copy application code
-COPY app.js ./
+# Copy application and server files
+COPY app.js server.js ./
 
 # Application port
 EXPOSE 3000

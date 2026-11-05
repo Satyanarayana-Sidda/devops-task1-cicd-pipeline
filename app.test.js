@@ -1,13 +1,32 @@
+﻿const test = require("node:test");
+const assert = require("node:assert/strict");
+const app = require("./app");
 
-const test = require("node:test");
-const assert = require("node:assert");
+test("GET /health should return application health status", async () => {
+    const server = app.listen(0);
 
-test("Application health status should be UP", async () => {
-    const response = await fetch("http://localhost:3000/health");
+    await new Promise((resolve, reject) => {
+        server.once("listening", resolve);
+        server.once("error", reject);
+    });
 
-    assert.strictEqual(response.status, 200);
+    const { port } = server.address();
 
-    const data = await response.json();
+    try {
+        const response = await fetch(`http://localhost:${port}/health`);
 
-    assert.strictEqual(data.status, "UP");
+        assert.equal(response.status, 200);
+
+        const data = await response.json();
+
+        assert.equal(data.status, "UP");
+        assert.equal(data.message, "Application is healthy");
+    } finally {
+        await new Promise((resolve, reject) => {
+            server.close((error) => {
+                if (error) reject(error);
+                else resolve();
+            });
+        });
+    }
 });
